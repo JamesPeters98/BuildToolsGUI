@@ -1,28 +1,26 @@
 language: java
 os: osx
-osx_image: xcode9.3	
+osx_image: xcode9.3
 
 install:
 - mvn -U clean install
-
+-
 script:
 - mvn jfx:jar
 - mvn jfx:native
-
+-
 cache:
   directories:
-  - $HOME/.m2
-
+  - "$HOME/.m2"
+  -
 before-deploy:
 - cd target/jfx/native
-
+-
 deploy:
   provider: releases
-  skip_cleanup: true
-  draft: true
   api_key:
-    secure: PQ5CocKxo9VifO+yJzTPHGgbRZT5tOu2sWLLov6yvwkIRyItb2xAmdpyNUlJq2XrtEUaZFRgrioiSFcujriRFMQ0zSvPz3JYPaUwkp/98ljLobNJwGLyzj4IUJrdXPQnq/DLNm5GEwxuzWqRl+3RemEeZsm6cPf8hQY1QKeJIa8FnwH0hjmaDQSRq7GQDpsN3XIqwClNoV3tgOvNa+7qXEfh4lQA78hnS3bX8GlHzuzV8rBW2ttzFSdeMcV+hnoGYN/dv8CnX+4mz0hNuwX+N1+5pgfnc2wKnAlUu6maYyTt9z71sX2lnGyoTh1Nq5rxbk36PuovYqlhqJhmgEGCtQnSILUpL1ndNDDl3zBMskZugA70/PuXL46y5vdsP9zqTh0Q+xFsXx9zByIVEPSi8m2+F4MM6693i7OOm775cFFUB9G9NKpJnWcTmW0CG4yW0nYmyg8PnERe4uFsxCBk7iaEC7y4Gtk8XqasKDmLNrPxwWVN8bvRU5m2ai41WLgLS/Wnff3dOOlVftFjRVkjjSK5Gxcvb39DVITJyNabEqkYyeFBWw7MoL2pPJyICEyHt2bj6uLq92h5v8JDKI1eDBtoW341wLesaQMhqRW3UNbN9AOmA+saJQHR6WerNyKOBSaBhy/MdlfCvzycqIfuNx/BcVv3xLUodliFM2iwD8I=
-  file: "*.*"
+    secure: HJ99XQr2dte+WEaLnBVz505EbrV/JGBQJm0tCet8mS/Dq9+VUb3BWmd6Btajl/k0DOZNYkJRMwsk3tzaj/NeRimadmNuwHjgsVyJHRz/dtF9vpPhFyWVQ5zjfK5RibZ3LpcumUIpWga4TtPlYv0qj8ZERZW37OiZpfmyNh2YUVWWRjiWa1p7ICjXVThr1BF77jrKYAOtDa3JvFPbk70NT47XZiGgZA0gXRhqjyR7uMaVUgJzSKmrWJV2cBqncxm7zdTmqKMFeCQZzy5jQAgBipck9+n4dvbVduiRPTYAUrOgkUrfv6ApeT5G+fRdpeaQreQH15jWvbxZdYi3W48th0YhzGx1djQNq49NJThQDi18VC3HHif8HYMMBK41xOk2B7rVrI7KtJdWMn7Agyu2S3+6nP8od+me/yQMOUjtN1E8+EhjFGEZ4PVxORg6iKT1c1weFchwSj06H/1Y+C9+2ZCRJuG0P+zXZvsMlxNwkkFpC2HCFDRKEBUh6aqYgBq38uy9kResFV0AgBMC3PZeE8dAUsMel/EnLCJu810WC0rQOLSiC9CgedFScbsymg4WSkEWmfRk3vhW0m/NzzU1MTrJFbGQRxDoRnnOzIA78b4HlkTAKjoLI1UupMk8j8r/xFQrjGcvz+GmOwyOHInytnBb0xL+lm3ZZXiWO0JbR9E=
+  file: /*.*
   on:
-    tags: true
     repo: JamesPeters98/BuildToolsGUI
+  skip_cleanup: 'true'
