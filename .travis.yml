@@ -18,9 +18,11 @@ before-deploy:
 -
 deploy:
   provider: releases
+  draft: true
   api_key:
     secure: HJ99XQr2dte+WEaLnBVz505EbrV/JGBQJm0tCet8mS/Dq9+VUb3BWmd6Btajl/k0DOZNYkJRMwsk3tzaj/NeRimadmNuwHjgsVyJHRz/dtF9vpPhFyWVQ5zjfK5RibZ3LpcumUIpWga4TtPlYv0qj8ZERZW37OiZpfmyNh2YUVWWRjiWa1p7ICjXVThr1BF77jrKYAOtDa3JvFPbk70NT47XZiGgZA0gXRhqjyR7uMaVUgJzSKmrWJV2cBqncxm7zdTmqKMFeCQZzy5jQAgBipck9+n4dvbVduiRPTYAUrOgkUrfv6ApeT5G+fRdpeaQreQH15jWvbxZdYi3W48th0YhzGx1djQNq49NJThQDi18VC3HHif8HYMMBK41xOk2B7rVrI7KtJdWMn7Agyu2S3+6nP8od+me/yQMOUjtN1E8+EhjFGEZ4PVxORg6iKT1c1weFchwSj06H/1Y+C9+2ZCRJuG0P+zXZvsMlxNwkkFpC2HCFDRKEBUh6aqYgBq38uy9kResFV0AgBMC3PZeE8dAUsMel/EnLCJu810WC0rQOLSiC9CgedFScbsymg4WSkEWmfRk3vhW0m/NzzU1MTrJFbGQRxDoRnnOzIA78b4HlkTAKjoLI1UupMk8j8r/xFQrjGcvz+GmOwyOHInytnBb0xL+lm3ZZXiWO0JbR9E=
   file: /*.*
   on:
+    tags: true
     repo: JamesPeters98/BuildToolsGUI
   skip_cleanup: 'true'
