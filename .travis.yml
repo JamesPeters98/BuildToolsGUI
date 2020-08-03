@@ -14,7 +14,8 @@ cache:
   - $HOME/.m2
 
 before-deploy:
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then export FOO=$(ls target/jfx/native/*.dmg); fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then export FOO=$(ls target/jfx/native/BuildToolsGUI-*.dmg); fi
+- echo "deploying $FOO to GitHub releases"
 
 deploy:
   provider: releases
