@@ -1,0 +1,27 @@
+language: java
+os: osx
+
+install:
+- mvn -U clean install
+
+script:
+- mvn jfx:jar
+- mvn jfx:native
+
+cache:
+  directories:
+  - $HOME/.m2
+
+before-deploy:
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then export FOO=$(ls target/jfx/native/*.dmg); fi
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  draft: true
+  api_key:
+    secure: PQ5CocKxo9VifO+yJzTPHGgbRZT5tOu2sWLLov6yvwkIRyItb2xAmdpyNUlJq2XrtEUaZFRgrioiSFcujriRFMQ0zSvPz3JYPaUwkp/98ljLobNJwGLyzj4IUJrdXPQnq/DLNm5GEwxuzWqRl+3RemEeZsm6cPf8hQY1QKeJIa8FnwH0hjmaDQSRq7GQDpsN3XIqwClNoV3tgOvNa+7qXEfh4lQA78hnS3bX8GlHzuzV8rBW2ttzFSdeMcV+hnoGYN/dv8CnX+4mz0hNuwX+N1+5pgfnc2wKnAlUu6maYyTt9z71sX2lnGyoTh1Nq5rxbk36PuovYqlhqJhmgEGCtQnSILUpL1ndNDDl3zBMskZugA70/PuXL46y5vdsP9zqTh0Q+xFsXx9zByIVEPSi8m2+F4MM6693i7OOm775cFFUB9G9NKpJnWcTmW0CG4yW0nYmyg8PnERe4uFsxCBk7iaEC7y4Gtk8XqasKDmLNrPxwWVN8bvRU5m2ai41WLgLS/Wnff3dOOlVftFjRVkjjSK5Gxcvb39DVITJyNabEqkYyeFBWw7MoL2pPJyICEyHt2bj6uLq92h5v8JDKI1eDBtoW341wLesaQMhqRW3UNbN9AOmA+saJQHR6WerNyKOBSaBhy/MdlfCvzycqIfuNx/BcVv3xLUodliFM2iwD8I=
+  file: "${FOO}"
+  on:
+    tags: true
+    repo: JamesPeters98/BuildToolsGUI
