@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.TextFlow?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jamesdpeters.buildtools.ui.ConsoleViewController">
+   <center>
+      <ScrollPane fx:id="scroll_pane" style="-fx-background: black; -fx-font-size: 13px;" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+         <content>
+            <TextFlow fx:id="console" focusTraversable="true" prefWidth="600.0" style="-fx-background-color: black;" />
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jamesdpeters.buildtoolsgui</groupId>
+    <artifactId>BuildToolsGUI</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.13.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+
+<!--            <plugin>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>single</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <appendAssemblyId>false</appendAssemblyId>-->
+<!--                    <descriptorRefs>-->
+<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--                    </descriptorRefs>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <mainClass>com.jamesdpeters.buildtools.Main</mainClass>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+                    <vendor>BuildTools</vendor>
+                    <mainClass>com.jamesdpeters.buildtools.BuildToolsGUI</mainClass>
+                </configuration>
+            </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>com.akathist.maven.plugins.launch4j</groupId>-->
+<!--                <artifactId>launch4j-maven-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>l4j-clui</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals><goal>launch4j</goal></goals>-->
+<!--                        <configuration>-->
+<!--                            <headerType>console</headerType>-->
+<!--                            <outfile>target/BuildTools.exe</outfile>-->
+<!--                            <jar>target/BuildToolsGUI.jar</jar>-->
+<!--                            <errTitle>BuildTools</errTitle>-->
+<!--                            <classPath>-->
+<!--                                <mainClass>com.jamesdpeters.buildtools.Main</mainClass>-->
+<!--                                <addDependencies>true</addDependencies>-->
+<!--                                <preCp>anything</preCp>-->
+<!--                            </classPath>-->
+<!--                            <jre>-->
+<!--                                <minVersion>1.8.0</minVersion>-->
+<!--&lt;!&ndash;                                <opts>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <opt>-Djava.endorsed.dirs=./endorsed</opt>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </opts>&ndash;&gt;-->
+<!--                            </jre>-->
+<!--                            <versionInfo>-->
+<!--                                <fileVersion>1.0.0.0</fileVersion>-->
+<!--                                <txtFileVersion>txt file version?</txtFileVersion>-->
+<!--                                <fileDescription>a description</fileDescription>-->
+<!--                                <copyright>my copyright</copyright>-->
+<!--                                <productVersion>4.3.2.1</productVersion>-->
+<!--                                <txtProductVersion>txt product version</txtProductVersion>-->
+<!--                                <productName>BuildTools</productName>-->
+<!--                                <internalName>BuildTools</internalName>-->
+<!--                                <originalFilename>BuildTools.exe</originalFilename>-->
+<!--                            </versionInfo>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>assembly</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals><goal>single</goal></goals>-->
+<!--                        <configuration>-->
+<!--                            <descriptors>-->
+<!--                                <descriptor>assembly.xml</descriptor>-->
+<!--                            </descriptors>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+        </plugins>
+    </build>
+    
+</project>
