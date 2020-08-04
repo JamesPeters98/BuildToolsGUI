@@ -23,7 +23,7 @@ public class BuildToolsGUI extends Application {
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         BuildToolsGUI.primaryStage = primaryStage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/filechooser.fxml"));
         Parent root = loader.load();

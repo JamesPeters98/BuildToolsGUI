@@ -8,6 +8,7 @@ import com.jamesdpeters.buildtools.properties.Flags;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -18,6 +19,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -59,17 +61,31 @@ public class UIController {
 
     @FXML
     void onCompileClick(ActionEvent event) {
-        BuildToolsRun.compile(flags.getCheckModel().getCheckedItems(), version.getValue(), compile.getValue(), processListener);
-        compile_button.setDisable(true);
-        compile_button.setText("Compiling");
+        File buildToolsPath = new File(file_path.getText());
+        if (buildToolsPath.exists()) {
+            BuildToolsSettings.setBuildToolsFolder(buildToolsPath);
+            BuildToolsRun.compile(flags.getCheckModel().getCheckedItems(), version.getValue(), compile.getValue(), processListener);
+            compile_button.setDisable(true);
+            compile_button.setText("Compiling");
+        } else {
+            Alert error = new Alert(Alert.AlertType.ERROR, "Please enter a valid BuildTools path and ensure the folder exists.");
+            error.show();
+        }
     }
 
     @FXML
     void openFileChooser(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setInitialDirectory(BuildToolsSettings.getBuildToolsFolder());
-        BuildToolsSettings.setBuildToolsFolder(directoryChooser.showDialog(stage));
-        file_path.setText(BuildToolsSettings.getBuildToolsFolder().getAbsolutePath());
+        File chosenDirectory = directoryChooser.showDialog(stage);
+        if(chosenDirectory != null) {
+            file_path.setText(BuildToolsSettings.getBuildToolsFolder().getAbsolutePath());
+        }
+    }
+
+    @FXML
+    void onFilePathTextEnter(ActionEvent event){
+        System.out.println("Text entered");
     }
 
     @FXML
@@ -85,7 +101,12 @@ public class UIController {
     void onSetBuildTools(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(BuildToolsSettings.getBuildToolsFolder());
-        BuildToolsSettings.setBuildToolsJar(fileChooser.showOpenDialog(stage));
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null && file.exists() && file.isFile()) {
+            BuildToolsSettings.setBuildToolsJar(file);
+        } else {
+
+        }
     }
 
     @FXML

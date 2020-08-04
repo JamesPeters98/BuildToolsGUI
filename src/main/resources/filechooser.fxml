@@ -50,7 +50,7 @@
                         <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="131.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="file_path" prefHeight="28.0" prefWidth="285.0" promptText="File Path" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                        <TextField fx:id="file_path" onAction="#onFilePathTextEnter" prefHeight="28.0" prefWidth="285.0" promptText="File Path" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                         <Button fx:id="file_chooser" mnemonicParsing="false" onAction="#openFileChooser" prefHeight="25.0" text="Choose File" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Label prefHeight="7.0" prefWidth="244.0" text="BuildTools Path">
                            <GridPane.margin>
