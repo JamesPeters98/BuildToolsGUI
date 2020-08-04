@@ -104,6 +104,7 @@ public class UIController {
         assert version != null : "fx:id=\"version\" was not injected: check your FXML file 'filechooser.fxml'.";
         assert compile_button != null : "fx:id=\"compile_button\" was not injected: check your FXML file 'filechooser.fxml'.";
 
+        menu.setUseSystemMenuBar(true);
         file_path.setText(BuildToolsSettings.getBuildToolsFolder().getAbsolutePath());
         flags.getItems().addAll(Flags.toList());
         flags.getCheckModel().getCheckedItems().addListener(listener);
