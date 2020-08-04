@@ -2,11 +2,12 @@ language: java
 jdk: openjdk8
 
 install:
-- mvn -U clean install
+  - jdk_switcher use openjdk8
+  - mvn -U clean install
 
 script:
-- mvn jfx:jar
-- mvn jfx:native
+  - mvn jfx:jar
+  - mvn jfx:native
 
 cache:
   directories:
