@@ -85,7 +85,6 @@ public class UIController {
 
     @FXML
     void onFilePathTextEnter(ActionEvent event){
-        System.out.println("Text entered");
     }
 
     @FXML

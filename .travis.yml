@@ -1,8 +1,8 @@
 language: java
-jdk: openjdk8
+jdk:
+  - oraclejdk8
 
 install:
-  - jdk_switcher use openjdk8
   - mvn -U clean install
 
 script:
