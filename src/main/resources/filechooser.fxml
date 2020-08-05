@@ -58,6 +58,7 @@
                            </GridPane.margin>
                         </Label>
                         <Button fx:id="compile_button" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCompileClick" prefHeight="25.0" text="Compile" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
                               <Insets top="30.0" />
                            </GridPane.margin>
                         </Button>
