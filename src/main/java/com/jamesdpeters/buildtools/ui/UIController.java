@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -17,9 +18,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 import org.controlsfx.control.CheckComboBox;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -62,7 +66,7 @@ public class UIController {
     @FXML
     void onCompileClick(ActionEvent event) {
         File buildToolsPath = new File(file_path.getText());
-        if (buildToolsPath.exists()) {
+        if (buildToolsPath.exists() && buildToolsPath.isDirectory()) {
             BuildToolsSettings.setBuildToolsFolder(buildToolsPath);
             BuildToolsRun.compile(flags.getCheckModel().getCheckedItems(), version.getValue(), compile.getValue(), processListener);
             compile_button.setDisable(true);
@@ -104,7 +108,8 @@ public class UIController {
         if (file != null && file.exists() && file.isFile()) {
             BuildToolsSettings.setBuildToolsJar(file);
         } else {
-
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a valid file for the BuildTools jar");
+            alert.show();
         }
     }
 
@@ -113,6 +118,33 @@ public class UIController {
         BuildToolsRun.destroyProcess();
         stage.close();
         System.exit(0);
+    }
+
+    @FXML
+    void onResetBuildToolsFolder(){
+        File buildToolsPath = new File(file_path.getText());
+        if (buildToolsPath.exists() && buildToolsPath.isDirectory()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "This will reset the contents of the currently selected BuildTools folder: " + buildToolsPath.getAbsolutePath(), ButtonType.OK, ButtonType.CANCEL);
+            alert.showAndWait();
+            if(alert.getResult() == ButtonType.OK){
+                try {
+                    FileUtils.cleanDirectory(buildToolsPath);
+                } catch (IOException e) {
+                    ExceptionAlert error = new ExceptionAlert(e, "Unable to clean BuildTools folder");
+                    error.show();
+                }
+            }
+        }
+    }
+
+    @FXML
+    void onOpenBuildToolsFolder(){
+        try {
+            Desktop.getDesktop().open(BuildToolsSettings.getBuildToolsFolder());
+        } catch (IOException e) {
+            ExceptionAlert alert = new ExceptionAlert(e, "Failed to open BuildTools folder");
+            alert.show();
+        }
     }
 
     @FXML
