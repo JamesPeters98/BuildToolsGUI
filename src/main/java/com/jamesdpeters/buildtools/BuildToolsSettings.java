@@ -7,6 +7,7 @@ public class BuildToolsSettings {
 
     private static File buildToolsFolder;
     private static File buildToolsJar;
+    private static File jdkPath;
 
     static {
         File defaultFolder = new JFileChooser().getFileSystemView().getDefaultDirectory();
@@ -14,6 +15,8 @@ public class BuildToolsSettings {
         //noinspection ResultOfMethodCallIgnored
         buildToolsFolder.mkdirs();
         buildToolsJar = new File(buildToolsFolder, "/BuildTools.jar");
+
+        jdkPath = new File(System.getProperty("java.home"));
     }
 
     public static void setBuildToolsFolder(File folder){
@@ -31,4 +34,7 @@ public class BuildToolsSettings {
     public static File getBuildToolsJar() {
         return buildToolsJar;
     }
+
+    public static File getJdkPath() { return jdkPath; }
+    public static void setJdkPath(File file){ jdkPath = file; }
 }

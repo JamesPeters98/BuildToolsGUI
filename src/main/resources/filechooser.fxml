@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<BorderPane prefHeight="233.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jamesdpeters.buildtools.ui.UIController">
+<BorderPane prefHeight="260.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jamesdpeters.buildtools.ui.UIController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -41,30 +41,32 @@
             </MenuBar>
             <AnchorPane prefHeight="65.0" prefWidth="640.0">
                <children>
-                  <GridPane alignment="TOP_CENTER" hgap="10.0" layoutY="-6.0" AnchorPane.bottomAnchor="-127.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane alignment="TOP_CENTER" hgap="10.0" layoutY="-6.0" prefHeight="246.0" prefWidth="428.0" AnchorPane.bottomAnchor="-181.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" maxWidth="356.0" minWidth="235.0" prefWidth="310.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="131.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="file_path" onAction="#onFilePathTextEnter" prefHeight="28.0" prefWidth="285.0" promptText="File Path" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                        <TextField fx:id="file_path" editable="false" onAction="#onFilePathTextEnter" prefHeight="28.0" prefWidth="285.0" promptText="File Path" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                         <Button fx:id="file_chooser" mnemonicParsing="false" onAction="#openFileChooser" prefHeight="25.0" text="Choose File" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Label prefHeight="7.0" prefWidth="244.0" text="BuildTools Path">
                            <GridPane.margin>
                               <Insets left="2.0" top="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Button fx:id="compile_button" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCompileClick" prefHeight="25.0" text="Compile" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Button fx:id="compile_button" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCompileClick" prefHeight="25.0" text="Compile" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets top="30.0" />
                            </GridPane.margin>
                         </Button>
-                        <GridPane prefHeight="107.0" prefWidth="246.0" GridPane.rowIndex="2">
+                        <GridPane prefHeight="107.0" prefWidth="246.0" GridPane.rowIndex="4">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="193.0" />
@@ -88,6 +90,9 @@
                               <Insets top="10.0" />
                            </GridPane.margin>
                         </GridPane>
+                        <Label prefHeight="7.0" prefWidth="244.0" text="Java JDK Path" GridPane.rowIndex="2" />
+                        <Button fx:id="jdk_chooser" mnemonicParsing="false" onAction="#openJDKChooser" prefHeight="25.0" prefWidth="76.0" text="Browse" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="jdk_path" editable="false" prefHeight="28.0" prefWidth="285.0" promptText="JDK Path" GridPane.rowIndex="3" />
                      </children>
                      <padding>
                         <Insets left="20.0" right="20.0" />

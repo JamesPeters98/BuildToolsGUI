@@ -36,7 +36,7 @@ public class BuildToolsRun {
 
                     ProcessBuilder processBuilder = new ProcessBuilder();
                     processBuilder.directory(BuildToolsSettings.getBuildToolsFolder());
-                    processBuilder.command("java", "-jar", BuildToolsSettings.getBuildToolsJar().getAbsolutePath());
+                    processBuilder.command(BuildToolsSettings.getJdkPath().getAbsolutePath()+"/bin/java", "-jar", BuildToolsSettings.getBuildToolsJar().getAbsolutePath());
 
                     if (!flags.contains(Flags.DEV.toString())){
                         processBuilder.command().add("--rev");

@@ -3,8 +3,11 @@ package com.jamesdpeters.buildtools.ui;
 import com.jamesdpeters.buildtools.BuildToolsRun;
 import com.jamesdpeters.buildtools.BuildToolsSettings;
 import com.jamesdpeters.buildtools.Utils;
+import com.jamesdpeters.buildtools.jdk.JdkChecker;
 import com.jamesdpeters.buildtools.properties.Compile;
 import com.jamesdpeters.buildtools.properties.Flags;
+import com.jamesdpeters.buildtools.properties.Version;
+import com.jamesdpeters.buildtools.properties.VersionUtil;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +30,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class UIController {
@@ -52,6 +58,12 @@ public class UIController {
     private CheckComboBox<String> flags;
 
     @FXML
+    private Button jdk_chooser;
+
+    @FXML
+    private TextField jdk_path;
+
+    @FXML
     public ComboBox<String> version;
 
     @FXML
@@ -63,8 +75,28 @@ public class UIController {
     @FXML
     private ComboBox<String> compile;
 
+    private Map<String, Version> versionMap;
+
     @FXML
     void onCompileClick(ActionEvent event) {
+        File jdkPath = new File(jdk_path.getText());
+        if (jdkPath.exists()) {
+            var jdkVersion = JdkChecker.getJdkVersion(jdkPath);
+            if(Objects.isNull(jdkVersion)) {
+                Alert error = new Alert(Alert.AlertType.ERROR, "Invalid JDK path provided, could not verify MAJOR version.");
+                error.show();
+                return;
+            } else {
+                var v = versionMap.get(version.getValue());
+                if (v != null) {
+                    if (!(jdkVersion >= v.javaVersions[0] && jdkVersion <= v.javaVersions[1])) {
+                        Alert error = new Alert(Alert.AlertType.ERROR, "JDK version ("+jdkVersion+") is not compatible with "+version.getValue()+". Which requires min: "+ v.javaVersions[0]+" max: "+v.javaVersions[1]);
+                        error.show();
+                        return;
+                    }
+                }
+            }
+        }
         File buildToolsPath = new File(file_path.getText());
         if (buildToolsPath.exists() && buildToolsPath.isDirectory()) {
             BuildToolsSettings.setBuildToolsFolder(buildToolsPath);
@@ -83,6 +115,7 @@ public class UIController {
         directoryChooser.setInitialDirectory(BuildToolsSettings.getBuildToolsFolder());
         File chosenDirectory = directoryChooser.showDialog(stage);
         if(chosenDirectory != null) {
+            BuildToolsSettings.setBuildToolsFolder(chosenDirectory);
             file_path.setText(BuildToolsSettings.getBuildToolsFolder().getAbsolutePath());
         }
     }
@@ -163,6 +196,7 @@ public class UIController {
         version.setValue("latest");
         compile.getItems().addAll(Compile.toList());
         compile.setValue(Compile.SPIGOT.toString());
+        jdk_path.setText(BuildToolsSettings.getJdkPath().getAbsolutePath());
     }
 
     //This checks if the --dev flag is enabled and disables the ability to select a version.
@@ -181,5 +215,35 @@ public class UIController {
 
     public void setStage(Stage stage){
         this.stage = stage;
+    }
+
+    public void updateVersions() throws IOException {
+        this.versionMap = VersionUtil.getVersions();
+        filterVersions();
+    }
+
+    public void filterVersions() {
+        var stringVersions = new ArrayList<>(versionMap.keySet());
+        version.getItems().clear();
+        version.getItems().addAll(stringVersions);
+        version.getItems().sort(VersionUtil.versionComparator);
+    }
+
+    public void openJDKChooser(ActionEvent actionEvent) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(BuildToolsSettings.getJdkPath());
+        File chosenDirectory = directoryChooser.showDialog(stage);
+        if(chosenDirectory != null) {
+            Integer version = JdkChecker.getJdkVersion(chosenDirectory);
+            if (version != null) {
+                BuildToolsSettings.setJdkPath(chosenDirectory);
+                jdk_path.setText(BuildToolsSettings.getJdkPath().getAbsolutePath());
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Using JDK Major version: "+version);
+                alert.show();
+            } else {
+                Alert error = new Alert(Alert.AlertType.ERROR, "Invalid JDK path provided, could not verify MAJOR version.");
+                error.show();
+            }
+        }
     }
 }

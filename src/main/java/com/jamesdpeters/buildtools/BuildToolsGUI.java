@@ -1,9 +1,11 @@
 package com.jamesdpeters.buildtools;
 
 import com.jamesdpeters.buildtools.properties.Version;
+import com.jamesdpeters.buildtools.properties.VersionUtil;
 import com.jamesdpeters.buildtools.ui.ConsoleViewController;
 import com.jamesdpeters.buildtools.ui.UIController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BuildToolsGUI extends Application {
@@ -32,7 +35,7 @@ public class BuildToolsGUI extends Application {
 
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/spigot-og.png")));
         primaryStage.setTitle("Build Tools GUI");
-        primaryStage.setScene(new Scene(root, 400, 220));
+        primaryStage.setScene(new Scene(root, 400, 260));
         primaryStage.setResizable(false);
         primaryStage.show();
 
@@ -44,18 +47,17 @@ public class BuildToolsGUI extends Application {
         // Blocking call for versions
         Alert loading = new Alert(Alert.AlertType.INFORMATION, "Loading latest versions");
         loading.initModality(Modality.APPLICATION_MODAL);
-        loading.setOnCloseRequest(e ->{
-            if(!canClose) e.consume();
-        });
+        loading.setOnCloseRequest(e ->{});
         loading.show();
-        try {
-            List<String> versions = Version.getVersions();
-            versions.add(0, "latest");
-            controller.version.getItems().addAll(versions);
-            canClose = true;
-            loading.close();
-        } catch (Exception e){}
 
+        new Thread(() -> {
+            try {
+                controller.updateVersions();
+                Platform.runLater(loading::close);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public static ConsoleViewController showConsole() throws IOException {
